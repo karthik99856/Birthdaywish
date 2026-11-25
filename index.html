@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Happy Birthday 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@500;700&family=Caveat:wght@500&family=Lora:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f6eee2;--paper2:#efe3d2;--ink:#5a2a22;--rose:#b8333e;--rose2:#e0757a;--btn:#e08d85;--gold:#d9a35a}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;height:100dvh;width:100vw;overscroll-behavior:none}
+body{font-family:Lora,serif;color:var(--ink);background:var(--paper);overflow:hidden;position:fixed;inset:0;
+background-image:radial-gradient(circle at 20% 10%,rgba(255,255,255,.6),transparent 40%),radial-gradient(circle at 80% 90%,rgba(224,141,133,.12),transparent 45%),
+url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .3 0 0 0 0 .2 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+#petals{position:fixed;inset:0;pointer-events:none;z-index:1}
+.petal{position:absolute;top:-20px;width:10px;height:12px;background:var(--rose2);border-radius:60% 0 60% 0;opacity:.6;animation:fall linear infinite}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg) translateX(60px)}}
+.scene{position:fixed;inset:0;width:100%;height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:calc(24px + env(safe-area-inset-top)) calc(24px + env(safe-area-inset-right)) calc(24px + env(safe-area-inset-bottom)) calc(24px + env(safe-area-inset-left));text-align:center;z-index:2;opacity:0;pointer-events:none;transform:scale(.97);transition:opacity .9s,transform .9s}
+.scene.on{opacity:1;pointer-events:auto;transform:none}
+.flash{position:fixed;inset:0;background:#fff;z-index:50;opacity:0;pointer-events:none;transition:opacity .35s}
+.flash.go{opacity:1}
+.sm{font-family:'Playfair Display';font-size:15px;letter-spacing:.5px}
+.script{font-family:'Great Vibes';font-size:46px;color:var(--rose);line-height:1;margin-top:2px}
+.sub{font-size:12px;opacity:.7;margin:8px 0 18px;max-width:300px}
+.heart{color:var(--rose);font-size:14px}
+.btn{font-family:'Playfair Display';background:linear-gradient(180deg,#eba39b,var(--btn));color:#fff;border:0;border-radius:10px;padding:12px 30px;font-size:15px;box-shadow:0 8px 20px -6px rgba(184,51,62,.5);cursor:pointer;margin-top:18px;transition:.3s}
+.btn:hover{transform:translateY(-2px)}.btn[disabled]{opacity:.45;pointer-events:none}
+.pill{font-size:11px;background:rgba(255,255,255,.7);border-radius:20px;padding:5px 14px;margin-top:12px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.polaroid{background:#fff;padding:10px 10px 34px;box-shadow:0 12px 28px -8px rgba(60,20,10,.35);position:relative}
+.polaroid img,.ph{display:block;width:100%;height:100%;object-fit:cover;background:linear-gradient(135deg,#f3b3ad,#c9475a)}
+.polaroid::before{content:'';position:absolute;top:-10px;left:50%;width:60px;height:20px;transform:translateX(-50%) rotate(-3deg);background:rgba(240,190,180,.7)}
+.polaroid::after{content:'♥';position:absolute;right:10px;bottom:8px;color:var(--rose)}
+/* keypad */
+.dots{display:flex;gap:12px;margin:10px 0 16px}.dots i{width:13px;height:13px;border-radius:50%;border:1.5px solid var(--rose2);transition:.2s}.dots i.f{background:var(--rose)}
+.pad{display:grid;grid-template-columns:repeat(3,58px);gap:12px;background:rgba(255,255,255,.4);padding:18px;border-radius:20px;backdrop-filter:blur(4px)}
+.pad button{height:58px;border-radius:50%;border:0;background:#fff;font-family:'Playfair Display';font-size:20px;color:var(--ink);box-shadow:0 4px 10px rgba(90,42,34,.1);cursor:pointer}
+.pad button:active{transform:scale(.9)}.shake{animation:sh .4s}@keyframes sh{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+/* cake */
+.cake{position:relative;width:230px;height:200px;margin-top:30px}
+.tier{position:absolute;left:50%;transform:translateX(-50%);border-radius:50%/18%;background:linear-gradient(#f9c9c2,#ec9a92);box-shadow:inset 0 -10px 0 rgba(184,51,62,.15)}
+.t1{bottom:0;width:230px;height:95px;background:linear-gradient(#e9a09a,#d6676c)}.t2{bottom:70px;width:170px;height:80px}
+.plate{position:absolute;bottom:-12px;left:50%;transform:translateX(-50%);width:270px;height:30px;border-radius:50%;background:linear-gradient(var(--gold),#a7752e)}
+.badge{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);font-family:'Great Vibes';font-size:24px;color:#fff;background:var(--rose);border-radius:50%;width:70px;height:70px;display:flex;align-items:center;justify-content:center;border:3px solid #f7d9a8}
+.candles{position:absolute;bottom:140px;left:50%;transform:translateX(-50%);display:flex;gap:16px}
+.candle{width:9px;height:42px;background:repeating-linear-gradient(45deg,#fff 0 5px,var(--rose) 5px 10px);border-radius:3px;position:relative;cursor:pointer}
+.flame{position:absolute;top:-20px;left:50%;width:12px;height:20px;margin-left:-6px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:radial-gradient(#fff6b0,#ffb43b 60%,#ff6a2b);animation:flick .15s infinite alternate;box-shadow:0 0 18px #ffb43b}
+.out .flame{animation:none;opacity:0;transition:.4s}.out::after{content:'';position:absolute;top:-30px;left:2px;width:4px;height:20px;background:rgba(150,150,150,.4);filter:blur(2px);animation:smoke 1.2s forwards}
+@keyframes flick{to{transform:scale(.9,1.08) rotate(3deg)}}@keyframes smoke{to{transform:translateY(-30px);opacity:0}}
+/* cake cut effect */
+.cake.ready-cut{cursor:grab;touch-action:none}
+.cake.ready-cut::before{content:'🔪 Swipe across cake to cut in two';position:absolute;top:-34px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.92);color:var(--rose);font-size:11px;padding:4px 10px;border-radius:12px;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.1);animation:bob 2s ease-in-out infinite alternate}
+.cake.cut::before{display:none}
+/* Two-piece split animation for cake tiers & badge */
+.cake.cut .t1{clip-path:polygon(0 0,50% 0,50% 100%,0 100%);animation:splitLeft .75s cubic-bezier(.22,1,.36,1) forwards}
+.cake.cut .t2{clip-path:polygon(0 0,50% 0,50% 100%,0 100%);animation:splitLeft .75s cubic-bezier(.22,1,.36,1) forwards}
+.cake.cut .badge{clip-path:polygon(0 0,50% 0,50% 100%,0 100%);animation:splitLeft .75s cubic-bezier(.22,1,.36,1) forwards}
+.cake-half-right{position:absolute;inset:0;pointer-events:none;opacity:0}
+.cake.cut .cake-half-right{opacity:1}
+.cake.cut .cake-half-right .t1,.cake.cut .cake-half-right .t2,.cake.cut .cake-half-right .badge{clip-path:polygon(50% 0,100% 0,100% 100%,50% 100%);animation:splitRight .75s cubic-bezier(.22,1,.36,1) forwards}
+@keyframes splitLeft{0%{transform:translateX(-50%)}100%{transform:translateX(calc(-50% - 14px)) rotate(-3deg)}}
+@keyframes splitRight{0%{transform:translateX(-50%)}100%{transform:translateX(calc(-50% + 14px)) rotate(3deg)}}
+/* camera */
+.cam{width:200px;height:130px;background:linear-gradient(#9b4a33,#6e2e1f);border-radius:18px;position:relative;cursor:pointer;box-shadow:0 14px 30px -10px rgba(0,0,0,.5);z-index:3}
+.cam::before{content:'';position:absolute;inset:0 0 auto;height:34px;background:#f1e5d3;border-radius:18px 18px 0 0}
+.lens{position:absolute;left:50%;top:50%;width:72px;height:72px;margin:-30px 0 0 -36px;border-radius:50%;background:radial-gradient(#3a4a6a 20%,#111 45%,#555 60%,#222 70%);border:5px solid #ddd}
+.camwrap{position:relative;height:300px;display:flex;flex-direction:column;align-items:center}
+.print{width:130px;height:160px;margin-top:-40px;transform:translateY(-60px);opacity:0;transition:transform 1.4s ease,opacity .5s;z-index:2}
+.print.out{transform:translateY(0);opacity:1}.print img{filter:brightness(2) saturate(0);transition:filter 3s 1s}.print.out img{filter:none}
+/* balloons */
+.balloons{position:relative;width:320px;height:300px}
+.bal{position:absolute;width:60px;height:74px;border-radius:50% 50% 48% 48%;cursor:pointer;animation:bob 3s ease-in-out infinite alternate}
+.bal::after{content:'';position:absolute;bottom:-40px;left:50%;width:1px;height:40px;background:#999}
+.word{position:absolute;font-family:'Great Vibes';font-size:34px;color:var(--rose);opacity:0;transition:.6s}.word.show{opacity:1}
+@keyframes bob{to{transform:translateY(-16px) rotate(4deg)}}.pop{animation:pop .3s forwards}@keyframes pop{to{transform:scale(1.6);opacity:0}}
+/* memories */
+.mem{position:relative;width:320px;height:420px;overflow-y:auto}
+.mem .polaroid{position:absolute;width:150px;height:180px;opacity:0;transition:1s}.mem .polaroid.in{opacity:1}
+/* letter */
+.env{width:260px;height:170px;background:#e7b9a7;position:relative;cursor:pointer;border-radius:6px;box-shadow:0 10px 25px -8px rgba(0,0,0,.3)}
+.env::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom right,transparent 49%,#dca290 50%) left/50% 100% no-repeat,linear-gradient(to bottom left,transparent 49%,#dca290 50%) right/50% 100% no-repeat}
+.flap{position:absolute;top:0;left:0;width:0;height:0;border-left:130px solid transparent;border-right:130px solid transparent;border-top:95px solid #d48f7c;transform-origin:top;transition:transform .7s;z-index:2}
+.env.open .flap{transform:rotateX(180deg)}.seal{position:absolute;top:75px;left:50%;margin-left:-16px;width:32px;height:32px;border-radius:50%;background:var(--rose);color:#fff;display:flex;align-items:center;justify-content:center;z-index:3}
+.env.open .seal{opacity:0}
+.note{background:#fffdf8;width:290px;min-height:170px;padding:22px;font-family:Caveat;font-size:22px;text-align:left;box-shadow:0 10px 30px -10px rgba(0,0,0,.3);border-radius:4px;display:none;line-height:1.3}
+/* our crazy gang 3D rotating ring */
+.gang-stage{width:320px;height:250px;perspective:900px;display:flex;align-items:center;justify-content:center;touch-action:none;cursor:grab;margin:6px 0}
+.gang-stage:active{cursor:grabbing}
+.gang-ring{position:relative;width:105px;height:130px;transform-style:preserve-3d}
+.gang-card{position:absolute;inset:0;background:#fff;padding:6px 6px 22px;box-shadow:0 8px 20px rgba(60,20,10,.3);border-radius:4px;cursor:pointer;user-select:none;backface-visibility:visible}
+.gang-card img,.gang-card .ph{width:100%;height:100%;object-fit:cover;pointer-events:none;border-radius:2px}
+.gang-card::after{content:'♥';position:absolute;right:6px;bottom:4px;color:var(--rose);font-size:11px}
+/* photo lightbox */
+.lightbox{position:fixed;inset:0;background:rgba(20,10,8,.88);z-index:80;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(4px)}
+.lightbox.on{opacity:1;pointer-events:auto}
+.lightbox .polaroid{width:min(82vw,310px);height:min(62vh,390px);padding:12px 12px 42px;transform:scale(.85);transition:transform .35s cubic-bezier(.2,1.4,.4,1)}
+.lightbox.on .polaroid{transform:scale(1)}
+.lb-close{margin-top:18px;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.35);padding:8px 22px;border-radius:20px;font-family:'Playfair Display';font-size:13px;cursor:pointer}
+/* scratch */
+.scratch{position:relative;width:240px;height:260px;border-radius:14px;overflow:hidden;box-shadow:0 14px 30px -10px rgba(184,51,62,.5)}
+.scratch canvas{position:absolute;inset:0;cursor:crosshair;touch-action:none}
+/* final */
+#final{background:#1b100c}
+.collage{position:relative;width:min(92vw,420px);height:min(80vh,560px)}
+.collage .polaroid{position:absolute;opacity:0;transform:scale(.6) rotate(0);transition:1s cubic-bezier(.2,1.4,.4,1)}
+.collage .polaroid.in{opacity:1}
+.big{font-family:'Great Vibes';font-size:58px;color:#f7d9a8;position:absolute;bottom:-10px;width:100%;text-shadow:0 4px 20px rgba(184,51,62,.8);opacity:0;transition:1.5s 2s}.big.in{opacity:1}
+.music{position:fixed;top:14px;right:14px;z-index:60;width:38px;height:38px;border-radius:50%;border:0;background:var(--rose);color:#fff;cursor:pointer}
+</style>
+</head>
+<body>
+<div id="petals"></div><div class="flash" id="flash"></div>
+<button class="music" id="mus">♫</button>
+<audio id="audio" loop src="music.mp3"></audio>
+
+<!-- 1 CODE -->
+<section class="scene on" id="s1">
+  <div class="polaroid" style="width:130px;height:150px;transform:rotate(-4deg)"><img id="s1-img" src="photos/1.jpg" onerror="this.className='ph';this.removeAttribute('src')"></div>
+  <div class="heart" style="margin-top:20px">♥</div>
+  <div class="sm" id="s1-title">Enter Your</div><div class="script" id="s1-script">Secret Code</div>
+  <div class="sub" id="s1-sub">Hint: her birthday (DDMM)</div>
+  <div class="dots" id="dots"><i></i><i></i><i></i><i></i></div>
+  <div class="pad" id="pad"></div>
+</section>
+
+<!-- 2 CAKE -->
+<section class="scene" id="s2">
+  <div class="sm" id="s2-title">It's Your</div><div class="script" id="s2-script">Surprise!</div>
+  <div class="sub" id="s2-sub">Tap the candles to blow them out & make a wish ♥</div>
+  <div class="cake"><div class="plate"></div><div class="tier t1"></div><div class="tier t2"></div><div class="badge" id="s2-badge">Special</div>
+  <div class="cake-half-right"><div class="tier t1"></div><div class="tier t2"></div><div class="badge" id="s2-badge-r">Special</div></div>
+  <div class="candles" id="candles"></div></div>
+  <div class="script" id="wish" style="font-size:34px;margin-top:30px;opacity:0;transition:1s">Wish granted!</div>
+  <button class="btn" id="b2" disabled>Continue →</button>
+</section>
+
+<!-- 3 CAMERA -->
+<section class="scene" id="s3">
+  <div class="sm" id="s3-title">Capture a Moment</div><div class="script" id="s3-script">Just for You</div>
+  <div class="sub" id="s3-sub">Tap the camera to reveal a special memory ♥</div>
+  <div class="camwrap"><div class="cam" id="cam"><div class="lens"></div></div>
+  <div class="polaroid print" id="print"><img id="s3-img" src="photos/2.jpg" onerror="this.className='ph';this.removeAttribute('src')"></div></div>
+  <div class="pill" id="dev">📷 Tap the camera</div>
+  <button class="btn" id="b3" disabled>Continue →</button>
+</section>
+
+<!-- 4 BALLOONS -->
+<section class="scene" id="s4">
+  <div class="sm" id="s4-title">Pop the</div><div class="script" id="s4-script">Balloons!</div>
+  <div class="sub" id="s4-sub">Pop all the balloons to reveal a special message</div>
+  <div class="balloons" id="balloons"></div>
+  <div class="pill" id="bleft">♥ 5 balloons left to pop</div>
+  <button class="btn" id="b4" disabled>Continue →</button>
+</section>
+
+<!-- 5 MEMORIES -->
+<section class="scene" id="s5">
+  <div class="sm" id="s5-title">Our Beautiful</div><div class="script" id="s5-script">Memories</div>
+  <div class="sub" id="s5-sub">A little collection of moments that matter</div>
+  <div class="mem" id="mem"></div>
+  <button class="btn" id="b5">Continue →</button>
+</section>
+
+<!-- 6 LETTER -->
+<section class="scene" id="s6">
+  <div class="sm" id="s6-title">A Little Letter</div><div class="script" id="s6-script">For You</div>
+  <div class="sub" id="s6-sub">Tap the envelope to open it</div>
+  <div class="env" id="env"><div class="flap"></div><div class="seal">♥</div></div>
+  <div class="note" id="note"></div>
+  <button class="btn" id="b6" disabled>Continue →</button>
+</section>
+
+<!-- 8 OUR CRAZY GANG -->
+<section class="scene" id="s8">
+  <div class="sm" id="s8-title">Memories With</div><div class="script" id="s8-script">Our Crazy Gang</div>
+  <div class="sub" id="s8-sub">Swipe to spin around • Tap any photo to enlarge ♥</div>
+  <div class="gang-stage" id="gangStage">
+    <div class="gang-ring" id="gangRing"></div>
+  </div>
+  <button class="btn" id="b8">Continue →</button>
+</section>
+
+<!-- PHOTO ZOOM MODAL -->
+<div class="lightbox" id="lightbox">
+  <div class="polaroid" id="lbCard"></div>
+  <button class="lb-close" id="lbClose">Close ✕</button>
+</div>
+
+<!-- 9 SCRATCH -->
+<section class="scene" id="s9">
+  <div class="sm" id="s9-title">It's Your</div><div class="script" id="s9-script">Birthday!</div>
+  <div class="sub" id="s9-sub">Scratch the card to see what's waiting for you</div>
+  <div class="scratch"><img id="s9-img" class="ph" src="photos/3.jpg" onerror="this.className='ph';this.removeAttribute('src')" style="width:100%;height:100%"><canvas id="scr" width="240" height="260"></canvas></div>
+  <button class="btn" id="b9" disabled>Scratch to Continue →</button>
+</section>
+
+<!-- 10 FINAL -->
+<section class="scene" id="final">
+  <div class="collage" id="collage"><div class="big" id="big">Happy Birthday</div></div>
+</section>
+
+<script>
+/* ============================================================================
+   🛠️ ఇక్కడ మీ అన్ని పేజీల ఫోటో URLs & టెక్స్ట్ స్లాట్స్ సులభంగా మార్చుకోండి (EDIT SLOTS)
+   ============================================================================ */
+const SITE_CONFIG = {
+  // 🎵 బ్యాక్‌గ్రౌండ్ మ్యూజిక్ URL:
+  MUSIC_URL: "music.mp3",
+
+  // 📌 PAGE 1: Secret Code (లాక్ స్క్రీన్)
+  PAGE_1_LOCK: {
+    code: "2511", // 4 అంకెల పాస్‌కోడ్
+    photoUrl: "photos/1.jpg",
+    titleSmall: "Enter Your",
+    titleBig: "Secret Code",
+    subtitle: "Hint: her birthday (DDMM)"
+  },
+
+  // 🎂 PAGE 2: Birthday Cake (కేక్ & క్యాండిల్స్)
+  PAGE_2_CAKE: {
+    titleSmall: "It's Your",
+    titleBig: "Surprise!",
+    subtitle: "Tap the candles to blow them out & make a wish ♥",
+    cakeBadgeText: "Special",
+    wishMessage: "Wish granted!",
+    afterBlowPrompt: "— Swipe across the cake to cut!",
+    afterCutMessage: "🎂 Cake cut into two! Enjoy your day!",
+    continueButtonText: "Continue →"
+  },
+
+  // 📷 PAGE 3: Polaroid Camera (కెమెరా ఫోటో)
+  PAGE_3_CAMERA: {
+    titleSmall: "Capture a Moment",
+    titleBig: "Just for You",
+    subtitle: "Tap the camera to reveal a special memory ♥",
+    photoUrl: "photos/2.jpg",
+    initialPillText: "📷 Tap the camera",
+    developingPillText: "✨ Developing your memory...",
+    readyPillText: "💖 A moment to remember",
+    continueButtonText: "Continue →"
+  },
+
+  // 🎈 PAGE 4: Balloons (5 బెలూన్ పదాలు)
+  PAGE_4_BALLOONS: {
+    titleSmall: "Pop the",
+    titleBig: "Balloons!",
+    subtitle: "Pop all the balloons to reveal a special message",
+    words: ["You", "are", "so", "very", "special"], // 5 పదాలు
+    remainingTextTemplate: "♥ {count} balloons left to pop",
+    finalLine: "💖 You are so very special!",
+    continueButtonText: "Continue →"
+  },
+
+  // 🖼️ PAGE 5: Our Beautiful Memories (3 ఫోటోలు)
+  PAGE_5_MEMORIES: {
+    titleSmall: "Our Beautiful",
+    titleBig: "Memories",
+    subtitle: "A little collection of moments that matter",
+    photos: [
+      "photos/1.jpg", // స్లాట్ 1
+      "photos/2.jpg", // స్లాట్ 2
+      "photos/3.jpg"  // స్లాట్ 3
+    ],
+    continueButtonText: "Continue →"
+  },
+
+  // 💌 PAGE 6: A Little Letter (ఉత్తరం)
+  PAGE_6_LETTER: {
+    titleSmall: "A Little Letter",
+    titleBig: "For You",
+    subtitle: "Tap the envelope to open it",
+    letterText: "Ananya, some people light up a room without even trying. You've been doing that since the day I met you. Happy birthday — never stop shining. ♥",
+    continueButtonText: "Continue →"
+  },
+
+  // 👯 PAGE 7: Our Crazy Gang (3D రొటేటింగ్ గ్యాలరీ)
+  PAGE_7_CRAZY_GANG: {
+    titleSmall: "Memories With",
+    titleBig: "Our Crazy Gang",
+    subtitle: "Swipe to spin around • Tap any photo to enlarge ♥",
+    closeButtonText: "Close ✕",
+    continueButtonText: "Continue →",
+    photos: [
+      "photos/1.jpg",  // గ్యాంగ్ ఫోటో 1
+      "photos/2.jpg",  // గ్యాంగ్ ఫోటో 2
+      "photos/3.jpg",  // గ్యాంగ్ ఫోటో 3
+      "photos/4.jpg",  // గ్యాంగ్ ఫోటో 4
+      "photos/5.jpg",  // గ్యాంగ్ ఫోటో 5
+      "photos/6.jpg",  // గ్యాంగ్ ఫోటో 6
+      "photos/7.jpg",  // గ్యాంగ్ ఫోటో 7
+      "photos/8.jpg",  // గ్యాంగ్ ఫోటో 8
+      "photos/9.jpg",  // గ్యాంగ్ ఫోటో 9
+      "photos/10.jpg", // గ్యాంగ్ ఫోటో 10
+      "photos/11.jpg", // గ్యాంగ్ ఫోటో 11
+      "photos/12.jpg", // గ్యాంగ్ ఫోటో 12
+      "photos/13.jpg", // గ్యాంగ్ ఫోటో 13
+      "photos/14.jpg", // గ్యాంగ్ ఫోటో 14
+      "photos/15.jpg"  // గ్యాంగ్ ఫోటో 15
+    ]
+  },
+
+  // 🎟️ PAGE 8: Scratch Card (స్క్రాచ్ కార్డ్ ఫోటో)
+  PAGE_8_SCRATCH: {
+    titleSmall: "It's Your",
+    titleBig: "Birthday!",
+    subtitle: "Scratch the card to see what's waiting for you",
+    scratchCoverText: "Scratch me ♥",
+    hiddenPhotoUrl: "photos/3.jpg",
+    lockedButtonText: "Scratch to Continue →",
+    unlockedButtonText: "Continue →"
+  },
+
+  // 🎉 PAGE 9: Final Collage (చివరి కొల్లాజ్)
+  PAGE_9_FINAL: {
+    bigWishText: "Happy Birthday",
+    photos: [
+      "photos/1.jpg", // కొల్లాజ్ ఫోటో 1
+      "photos/2.jpg", // కొల్లాజ్ ఫోటో 2
+      "photos/3.jpg", // కొల్లాజ్ ఫోటో 3
+      "photos/4.jpg", // కొల్లాజ్ ఫోటో 4
+      "photos/5.jpg"  // కొల్లాజ్ ఫోటో 5
+    ]
+  }
+};
+/* ============================================================================ */
+
+const $=id=>document.getElementById(id);
+const img=s=>`<img src="${s}" onerror="this.className='ph';this.removeAttribute('src')">`;
+
+// Apply all text & image slots from SITE_CONFIG
+$('audio').src=SITE_CONFIG.MUSIC_URL;
+
+$('s1-img').src=SITE_CONFIG.PAGE_1_LOCK.photoUrl;
+$('s1-title').textContent=SITE_CONFIG.PAGE_1_LOCK.titleSmall;
+$('s1-script').textContent=SITE_CONFIG.PAGE_1_LOCK.titleBig;
+$('s1-sub').textContent=SITE_CONFIG.PAGE_1_LOCK.subtitle;
+
+$('s2-title').textContent=SITE_CONFIG.PAGE_2_CAKE.titleSmall;
+$('s2-script').textContent=SITE_CONFIG.PAGE_2_CAKE.titleBig;
+$('s2-sub').textContent=SITE_CONFIG.PAGE_2_CAKE.subtitle;
+$('s2-badge').textContent=SITE_CONFIG.PAGE_2_CAKE.cakeBadgeText;
+$('s2-badge-r').textContent=SITE_CONFIG.PAGE_2_CAKE.cakeBadgeText;
+$('wish').textContent=SITE_CONFIG.PAGE_2_CAKE.wishMessage;
+$('b2').textContent=SITE_CONFIG.PAGE_2_CAKE.continueButtonText;
+
+$('s3-title').textContent=SITE_CONFIG.PAGE_3_CAMERA.titleSmall;
+$('s3-script').textContent=SITE_CONFIG.PAGE_3_CAMERA.titleBig;
+$('s3-sub').textContent=SITE_CONFIG.PAGE_3_CAMERA.subtitle;
+$('s3-img').src=SITE_CONFIG.PAGE_3_CAMERA.photoUrl;
+$('dev').textContent=SITE_CONFIG.PAGE_3_CAMERA.initialPillText;
+$('b3').textContent=SITE_CONFIG.PAGE_3_CAMERA.continueButtonText;
+
+$('s4-title').textContent=SITE_CONFIG.PAGE_4_BALLOONS.titleSmall;
+$('s4-script').textContent=SITE_CONFIG.PAGE_4_BALLOONS.titleBig;
+$('s4-sub').textContent=SITE_CONFIG.PAGE_4_BALLOONS.subtitle;
+$('b4').textContent=SITE_CONFIG.PAGE_4_BALLOONS.continueButtonText;
+
+$('s5-title').textContent=SITE_CONFIG.PAGE_5_MEMORIES.titleSmall;
+$('s5-script').textContent=SITE_CONFIG.PAGE_5_MEMORIES.titleBig;
+$('s5-sub').textContent=SITE_CONFIG.PAGE_5_MEMORIES.subtitle;
+$('b5').textContent=SITE_CONFIG.PAGE_5_MEMORIES.continueButtonText;
+
+$('s6-title').textContent=SITE_CONFIG.PAGE_6_LETTER.titleSmall;
+$('s6-script').textContent=SITE_CONFIG.PAGE_6_LETTER.titleBig;
+$('s6-sub').textContent=SITE_CONFIG.PAGE_6_LETTER.subtitle;
+$('b6').textContent=SITE_CONFIG.PAGE_6_LETTER.continueButtonText;
+
+$('s8-title').textContent=SITE_CONFIG.PAGE_7_CRAZY_GANG.titleSmall;
+$('s8-script').textContent=SITE_CONFIG.PAGE_7_CRAZY_GANG.titleBig;
+$('s8-sub').textContent=SITE_CONFIG.PAGE_7_CRAZY_GANG.subtitle;
+$('lbClose').textContent=SITE_CONFIG.PAGE_7_CRAZY_GANG.closeButtonText;
+$('b8').textContent=SITE_CONFIG.PAGE_7_CRAZY_GANG.continueButtonText;
+
+$('s9-title').textContent=SITE_CONFIG.PAGE_8_SCRATCH.titleSmall;
+$('s9-script').textContent=SITE_CONFIG.PAGE_8_SCRATCH.titleBig;
+$('s9-sub').textContent=SITE_CONFIG.PAGE_8_SCRATCH.subtitle;
+$('s9-img').src=SITE_CONFIG.PAGE_8_SCRATCH.hiddenPhotoUrl;
+$('b9').textContent=SITE_CONFIG.PAGE_8_SCRATCH.lockedButtonText;
+
+$('big').textContent=SITE_CONFIG.PAGE_9_FINAL.bigWishText;
+
+// petals
+for(let i=0;i<22;i++){const p=document.createElement('div');p.className='petal';p.style.left=Math.random()*100+'vw';p.style.animationDuration=8+Math.random()*10+'s';p.style.animationDelay=-Math.random()*15+'s';p.style.transform=`scale(${.5+Math.random()})`;$('petals').appendChild(p)}
+// Enter mobile/browser fullscreen on first user gesture when supported
+function enterFullScreen(){
+  const el=document.documentElement;
+  if(!document.fullscreenElement&&!document.webkitFullscreenElement){
+    const req=el.requestFullscreen||el.webkitRequestFullscreen||el.mozRequestFullScreen||el.msRequestFullscreen;
+    if(req){req.call(el).catch(()=>{})}
+  }
+}
+document.addEventListener('pointerdown',enterFullScreen,{once:true});
+// navigation with white flash
+let cur='s1';function go(id){$('flash').classList.add('go');setTimeout(()=>{$(cur).classList.remove('on');$(id).classList.add('on');cur=id;$('flash').classList.remove('go');init[id]&&init[id]()},450)}
+const init={};
+$('mus').onclick=()=>{const a=$('audio');if(!a.src||a.src.endsWith('/')){return}a.paused?a.play().catch(()=>{}):a.pause()};
+// 1 keypad
+let entry="";["1","2","3","4","5","6","7","8","9","⌫","0","♥"].forEach(k=>{const b=document.createElement('button');b.textContent=k;b.onclick=()=>{
+ if(k==="⌫")entry=entry.slice(0,-1);else if(k!=="♥"&&entry.length<4)entry+=k;
+ [...$('dots').children].forEach((d,i)=>d.classList.toggle('f',i<entry.length));
+ if(entry.length===4){if(entry===SITE_CONFIG.PAGE_1_LOCK.code){$('audio').play().catch(()=>{});setTimeout(()=>go('s2'),300)}else{$('pad').classList.add('shake');setTimeout(()=>{$('pad').classList.remove('shake');entry="";[...$('dots').children].forEach(d=>d.classList.remove('f'))},450)}}};$('pad').appendChild(b)});
+// 2 cake
+let candlesDone=false,cakeCut=false,cakeSwipeStartX=null,cakeSwipeStartY=null;
+for(let i=0;i<5;i++){const c=document.createElement('div');c.className='candle';c.innerHTML='<div class="flame"></div>';c.onclick=()=>{c.classList.add('out');if(document.querySelectorAll('.candle.out').length===5&&!candlesDone){candlesDone=true;$('wish').style.opacity=1;$('wish').textContent=`${SITE_CONFIG.PAGE_2_CAKE.wishMessage} ${SITE_CONFIG.PAGE_2_CAKE.afterBlowPrompt}`;document.querySelector('.cake').classList.add('ready-cut')}};$('candles').appendChild(c)}
+const cakeEl=document.querySelector('.cake');
+function triggerCakeCut(){
+  if(!candlesDone||cakeCut)return;
+  cakeCut=true;
+  cakeEl.classList.remove('ready-cut');
+  cakeEl.classList.add('cut');
+  $('wish').textContent=SITE_CONFIG.PAGE_2_CAKE.afterCutMessage;
+  $('b2').disabled=false;
+}
+cakeEl.addEventListener('pointerdown',e=>{
+  if(!candlesDone||cakeCut)return;
+  cakeSwipeStartX=e.clientX;
+  cakeSwipeStartY=e.clientY;
+});
+cakeEl.addEventListener('pointermove',e=>{
+  if(!candlesDone||cakeCut||cakeSwipeStartX===null)return;
+  const dx=Math.abs(e.clientX-cakeSwipeStartX);
+  const dy=Math.abs(e.clientY-cakeSwipeStartY);
+  if(Math.hypot(dx,dy)>=36){
+    cakeSwipeStartX=null;
+    cakeSwipeStartY=null;
+    triggerCakeCut();
+  }
+});
+cakeEl.addEventListener('pointerup',()=>{cakeSwipeStartX=null;cakeSwipeStartY=null});
+cakeEl.addEventListener('pointercancel',()=>{cakeSwipeStartX=null;cakeSwipeStartY=null});
+$('b2').onclick=()=>go('s3');
+// 3 camera
+$('cam').onclick=()=>{$('flash').classList.add('go');setTimeout(()=>$('flash').classList.remove('go'),150);$('print').classList.add('out');$('dev').textContent=SITE_CONFIG.PAGE_3_CAMERA.developingPillText;setTimeout(()=>{$('dev').textContent=SITE_CONFIG.PAGE_3_CAMERA.readyPillText;$('b3').disabled=false},3500)};
+$('b3').onclick=()=>go('s4');
+// 4 balloons
+const cols=['#e98a5a','#ef9ab0','#d9534f','#f3c07a','#c97bb0'];
+const WORDS=SITE_CONFIG.PAGE_4_BALLOONS.words;
+let left=WORDS.length;
+const formatLeftText=n=>SITE_CONFIG.PAGE_4_BALLOONS.remainingTextTemplate.replace('{count}',n);
+$('bleft').textContent=formatLeftText(left);
+WORDS.forEach((w,i)=>{const x=20+(i%3)*100,y=i<3?40:170;const wd=document.createElement('div');wd.className='word';wd.textContent=w;wd.style.left=x+'px';wd.style.top=y+20+'px';
+ const b=document.createElement('div');b.className='bal';b.style.cssText=`left:${x}px;top:${y}px;background:radial-gradient(circle at 30% 30%,#fff8,${cols[i%cols.length]} 40%);animation-delay:${-i*.6}s`;
+ b.onclick=()=>{b.classList.add('pop');wd.classList.add('show');left--;$('bleft').textContent=left?formatLeftText(left):SITE_CONFIG.PAGE_4_BALLOONS.finalLine;if(!left)$('b4').disabled=false};
+ $('balloons').append(wd,b)});
+$('b4').onclick=()=>go('s5');
+// 5 memories
+init.s5=()=>{const m=$('mem');m.innerHTML='';const pos=[[80,0,-4,170,200],[10,220,-6,140,170],[170,230,5,140,170]];SITE_CONFIG.PAGE_5_MEMORIES.photos.slice(0,3).forEach((s,i)=>{const p=document.createElement('div');p.className='polaroid';const[x,y,r,w,h]=pos[i];p.style.cssText=`left:${x}px;top:${y}px;width:${w}px;height:${h}px;transform:rotate(${r}deg) translateY(30px)`;p.innerHTML=img(s);m.appendChild(p);setTimeout(()=>{p.classList.add('in');p.style.transform=`rotate(${r}deg)`},300+i*500)})};
+$('b5').onclick=()=>go('s6');
+// 6 letter
+let letterOpened=false;
+$('env').onclick=()=>{if(letterOpened)return;letterOpened=true;$('env').classList.add('open');const txt=SITE_CONFIG.PAGE_6_LETTER.letterText;setTimeout(()=>{$('env').style.display='none';$('note').style.display='block';let i=0;const t=setInterval(()=>{$('note').textContent=txt.slice(0,++i);if(i>=txt.length){clearInterval(t);$('b6').disabled=false}},40)},800)};
+$('b6').onclick=()=>go('s8');
+// 8 our crazy gang (3D rotating carousel + drag + tap to zoom)
+let gangBuilt=false,gangAngle=0,gangDragging=false,gangStartX=0,gangMoved=false,gangVel=0.25;
+init.s8=()=>{
+  if(gangBuilt)return;
+  gangBuilt=true;
+  const ring=$('gangRing'),stage=$('gangStage');
+  const gangList=SITE_CONFIG.PAGE_7_CRAZY_GANG.photos;
+  const count=gangList.length;
+  const radius=Math.max(210,Math.round((115/2)/Math.tan(Math.PI/count)));
+  gangList.forEach((src,i)=>{
+    const card=document.createElement('div');
+    card.className='gang-card';
+    card.innerHTML=img(src);
+    const theta=(360/count)*i;
+    card.style.transform=`rotateY(${theta}deg) translateZ(${radius}px)`;
+    card.onclick=()=>{
+      if(gangMoved)return;
+      $('lbCard').innerHTML=img(src);
+      $('lightbox').classList.add('on');
+    };
+    ring.appendChild(card);
+  });
+  stage.onpointerdown=e=>{
+    gangDragging=true;
+    gangMoved=false;
+    gangStartX=e.clientX;
+    stage.setPointerCapture(e.pointerId);
+  };
+  stage.onpointermove=e=>{
+    if(!gangDragging)return;
+    const dx=e.clientX-gangStartX;
+    if(Math.abs(dx)>4)gangMoved=true;
+    gangAngle+=dx*0.45;
+    gangVel=dx*0.15;
+    gangStartX=e.clientX;
+    ring.style.transform=`rotateY(${gangAngle}deg)`;
+  };
+  const endDrag=()=>{gangDragging=false};
+  stage.onpointerup=endDrag;
+  stage.onpointercancel=endDrag;
+  const spin=()=>{
+    if(cur==='s8'&&!gangDragging&&!$('lightbox').classList.contains('on')){
+      gangVel+=(0.25-gangVel)*0.04;
+      gangAngle+=gangVel;
+      ring.style.transform=`rotateY(${gangAngle}deg)`;
+    }
+    requestAnimationFrame(spin);
+  };
+  spin();
+};
+$('lbClose').onclick=()=>$('lightbox').classList.remove('on');
+$('lightbox').onclick=e=>{if(e.target===$('lightbox'))$('lightbox').classList.remove('on')};
+$('b8').onclick=()=>go('s9');
+// 9 scratch
+init.s9=()=>{const cv=$('scr'),x=cv.getContext('2d');const g=x.createLinearGradient(0,0,240,260);g.addColorStop(0,'#e0325a');g.addColorStop(1,'#a3123a');x.fillStyle=g;x.fillRect(0,0,240,260);x.fillStyle='#fff';x.font='28px Great Vibes';x.textAlign='center';x.fillText(SITE_CONFIG.PAGE_8_SCRATCH.scratchCoverText,120,135);
+ let down=false;const sc=e=>{if(!down)return;const r=cv.getBoundingClientRect(),t=e.touches?e.touches[0]:e;x.globalCompositeOperation='destination-out';x.beginPath();x.arc(t.clientX-r.left,t.clientY-r.top,22,0,7);x.fill();
+  const d=x.getImageData(0,0,240,260).data;let c=0;for(let i=3;i<d.length;i+=40)if(!d[i])c++;if(c/(d.length/40)>.5){cv.style.transition='opacity .8s';cv.style.opacity=0;$('b9').disabled=false;$('b9').textContent=SITE_CONFIG.PAGE_8_SCRATCH.unlockedButtonText}};
+ cv.onpointerdown=e=>{down=true;sc(e)};window.onpointerup=()=>down=false;cv.onpointermove=sc};
+$('b9').onclick=()=>go('final');
+// 10 final
+init.final=()=>{const c=$('collage');const L=[[5,5,-8,45,38],[50,0,6,45,34],[20,32,-3,62,44],[0,62,5,42,30],[55,58,-6,42,32]];SITE_CONFIG.PAGE_9_FINAL.photos.slice(0,5).forEach((s,i)=>{const p=document.createElement('div');p.className='polaroid';const[x,y,r,w,h]=L[i];p.style.cssText=`left:${x}%;top:${y}%;width:${w}%;height:${h}%`;p.innerHTML=img(s);c.insertBefore(p,$('big'));setTimeout(()=>{p.classList.add('in');p.style.transform=`rotate(${r}deg)`},300+i*400)});$('big').classList.add('in');
+ setInterval(()=>{const h=document.createElement('div');h.className='petal';h.style.left=Math.random()*100+'vw';h.style.animationDuration='6s';h.style.background='#f7d9a8';$('petals').appendChild(h);setTimeout(()=>h.remove(),6000)},300)};
+</script>
+</body>
+</html>
