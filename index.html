@@ -391,6 +391,9 @@ function enterFullScreen(){
   }
 }
 document.addEventListener('pointerdown',enterFullScreen,{once:true});
+document.addEventListener('click',enterFullScreen,{once:true});
+document.addEventListener('touchstart',enterFullScreen,{once:true,passive:true});
+window.addEventListener('load',()=>{enterFullScreen();setTimeout(enterFullScreen,120)});
 // navigation with white flash
 let cur='s1';function go(id){$('flash').classList.add('go');setTimeout(()=>{$(cur).classList.remove('on');$(id).classList.add('on');cur=id;$('flash').classList.remove('go');init[id]&&init[id]()},450)}
 const init={};
